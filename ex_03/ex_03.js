@@ -12,17 +12,14 @@ try {
 		var file1 = process.argv[2];
 		var file2 = process.argv[3];
 
-		// file1 exists		
-		fs.access(file1, fs.constants.R_OK, (err) => {
+// Using fs.access() to check for the accessibility of a file before calling fs.open(), fs.readFile() or fs.writeFile() is not recommended (SOURCE DOC)
+		// get content
+  	fs.readFile(file1, (err, data) => {
 			if (err) console.log("Error: Critical failure");
-			// get content
-	  	fs.readFile(file1, (err, data) => {
-				if (err) console.log("Error: Critical failure");
-					// copy content
-					fs.writeFile(file2, data, (err) => {
-			  		if (err) console.log("Error: Critical failure");	 
-	  		});	 
-	  	});				
+				// copy content
+				fs.writeFile(file2, data, (err) => {
+		  		if (err) console.log("Error: Critical failure");	 
+  		});	 
   	});				
   }
 }
